@@ -6,8 +6,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @Service
 public class OffCyclePayrollAuthorizationService {
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public Assessment assess(Request request) {
         List<String> blockers = new ArrayList<>();
         List<String> actions = new ArrayList<>();
@@ -27,11 +33,20 @@ public class OffCyclePayrollAuthorizationService {
         return new Assessment(request.batchId(), decision, List.copyOf(blockers), List.copyOf(actions));
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record Request(@NotBlank String batchId, boolean employeesActive,
                           boolean earningsEvidenceComplete, boolean deductionsValidated,
                           boolean taxCalculated, boolean bankTokensValid, boolean duplicateCheckClear,
                           boolean fundingApproved, boolean payrollApproved, boolean reasonCodesAssigned,
                           boolean employeeNoticeReady, boolean makerCheckerSeparated, boolean auditReady) {}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record Assessment(String batchId, Decision decision, List<String> blockers, List<String> actions) {}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public enum Decision { RELEASE, REVIEW, BLOCKED }
 }

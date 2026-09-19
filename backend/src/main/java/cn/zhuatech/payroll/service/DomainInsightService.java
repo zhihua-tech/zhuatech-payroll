@@ -6,8 +6,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.math.*;
 import java.util.*;
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @Service
 public class DomainInsightService {
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public Map<String,Object> analyze(InsightRequest req){
         Map<String,Object> result=new LinkedHashMap<>();
         BigDecimal gross=req.baseSalary().add(req.allowance()).add(req.bonus());
@@ -16,6 +22,12 @@ BigDecimal net=gross.subtract(deductions).setScale(2,RoundingMode.HALF_UP);
 result.put("grossPay",gross);result.put("deductions",deductions);result.put("netPay",net);result.put("decision",net.signum()>=0?"READY":"REVIEW");
         return result;
     }
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private BigDecimal rate(long numerator,long denominator){return denominator==0?BigDecimal.ZERO:BigDecimal.valueOf(numerator).multiply(BigDecimal.valueOf(100)).divide(BigDecimal.valueOf(denominator),2,RoundingMode.HALF_UP);}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record InsightRequest(@DecimalMin("0.0") BigDecimal baseSalary, @DecimalMin("0.0") BigDecimal allowance, @DecimalMin("0.0") BigDecimal bonus, @DecimalMin("0.0") BigDecimal socialInsurance, @DecimalMin("0.0") BigDecimal tax, @DecimalMin("0.0") BigDecimal otherDeduction){}
 }

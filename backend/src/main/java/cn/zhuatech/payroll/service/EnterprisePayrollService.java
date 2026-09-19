@@ -7,8 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.math.*;
 import java.util.*;
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @Service
 public class EnterprisePayrollService {
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public BatchResult calculate(@Valid BatchRequest request){
         Set<String> employees=new HashSet<>();List<PaySlip> slips=new ArrayList<>();BigDecimal batchNet=BigDecimal.ZERO;
         for(var line:request.lines()){
@@ -33,6 +39,9 @@ public class EnterprisePayrollService {
         return new BatchResult(request.period(),slips.size(),money(batchNet),slips,
             slips.stream().allMatch(s->"READY".equals(s.decision()))?"READY_FOR_APPROVAL":"REVIEW_REQUIRED");
     }
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private TaxBracket bracket(BigDecimal value){
         if(value.compareTo(new BigDecimal("36000"))<=0)return new TaxBracket(new BigDecimal(".03"),BigDecimal.ZERO);
         if(value.compareTo(new BigDecimal("144000"))<=0)return new TaxBracket(new BigDecimal(".10"),new BigDecimal("2520"));
@@ -42,18 +51,39 @@ public class EnterprisePayrollService {
         if(value.compareTo(new BigDecimal("960000"))<=0)return new TaxBracket(new BigDecimal(".35"),new BigDecimal("85920"));
         return new TaxBracket(new BigDecimal(".45"),new BigDecimal("181920"));
     }
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private BigDecimal money(BigDecimal value){return value.setScale(2,RoundingMode.HALF_UP);}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private ResponseStatusException bad(String msg){return new ResponseStatusException(HttpStatus.BAD_REQUEST,msg);}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private record TaxBracket(BigDecimal rate,BigDecimal quickDeduction){}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record BatchRequest(@NotBlank @Pattern(regexp="\\d{4}-(0[1-9]|1[0-2])") String period,
         @NotEmpty List<@Valid PayLine> lines){}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record PayLine(@NotBlank String employeeNo,@NotBlank String employeeName,@NotNull @DecimalMin("0") BigDecimal baseSalary,
         @NotNull @DecimalMin("0") BigDecimal allowance,@NotNull @DecimalMin("0") BigDecimal bonus,
         @NotNull @DecimalMin("0") BigDecimal overtimePay,@NotNull @DecimalMin("0") BigDecimal socialInsurance,
         @NotNull @DecimalMin("0") BigDecimal housingFund,@NotNull @DecimalMin("0") BigDecimal specialDeduction,
         @NotNull @DecimalMin("0") BigDecimal otherDeduction,@NotNull @DecimalMin("0") BigDecimal cumulativeTaxableBefore,
         @NotNull @DecimalMin("0") BigDecimal taxPaidBefore,@NotNull String bankAccountToken){}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record PaySlip(String employeeNo,String employeeName,BigDecimal grossPay,BigDecimal taxableCurrent,
         BigDecimal currentTax,BigDecimal deductions,BigDecimal netPay,BigDecimal taxRate,List<String> warnings,String decision){}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record BatchResult(String period,int employeeCount,BigDecimal batchNetPay,List<PaySlip> slips,String decision){}
 }
