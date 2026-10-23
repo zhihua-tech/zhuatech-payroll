@@ -1,0 +1,77 @@
+{
+  "slug": "payroll",
+  "title": "工资应发应扣与实发预检",
+  "fields": [
+    {
+      "key": "payroll_no",
+      "label": "工资单",
+      "type": "ID",
+      "length": 200
+    },
+    {
+      "key": "employee_no",
+      "label": "工号",
+      "type": "ID",
+      "length": 200
+    },
+    {
+      "key": "gross",
+      "label": "应发金额",
+      "type": "DECIMAL",
+      "length": 200,
+      "scale": 2
+    },
+    {
+      "key": "deduction",
+      "label": "应扣金额",
+      "type": "DECIMAL",
+      "length": 200,
+      "scale": 2
+    },
+    {
+      "key": "net",
+      "label": "实发金额",
+      "type": "DECIMAL",
+      "length": 200,
+      "scale": 2
+    },
+    {
+      "key": "payment_date",
+      "label": "发薪日期",
+      "type": "DATE",
+      "length": 200
+    }
+  ],
+  "unique": [
+    [
+      "payroll_no"
+    ],
+    [
+      "employee_no",
+      "payment_date"
+    ]
+  ],
+  "rules": [
+    {
+      "op": "SUM_EQ",
+      "args": [
+        "deduction",
+        "net",
+        "gross"
+      ],
+      "code": "PAYROLL_BALANCE",
+      "message": "应扣加实发必须等于应发",
+      "bad": {
+        "net": "10499"
+      }
+    }
+  ],
+  "sampleCsv": "payroll_no,employee_no,gross,deduction,net,payment_date\nSAL-001,EMP-01,12000,1500,10500,2026-11-05\n",
+  "limits": {
+    "rows": 500,
+    "bytes": 262144,
+    "columns": 32,
+    "cellCharacters": 4000
+  },
+  "scope": "Read-only batch validation; no persistence, reference-master lookup or full production certification."
+}
