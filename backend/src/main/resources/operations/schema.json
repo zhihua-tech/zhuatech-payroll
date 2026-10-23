@@ -1,0 +1,88 @@
+{
+  "slug": "payroll",
+  "title": "按应计天数折薪与扣款超额校验",
+  "fields": [
+    {
+      "key": "id",
+      "label": "记录编号",
+      "type": "ID"
+    },
+    {
+      "key": "monthlyBase",
+      "label": "整月基本工资",
+      "type": "NUMBER",
+      "scale": 2,
+      "min": "0",
+      "max": "1000000000000"
+    },
+    {
+      "key": "standardDays",
+      "label": "制度标准天数",
+      "type": "NUMBER",
+      "scale": 6,
+      "min": "0.000001",
+      "max": "366"
+    },
+    {
+      "key": "eligibleDays",
+      "label": "本期应计天数",
+      "type": "NUMBER",
+      "scale": 6,
+      "min": "0",
+      "max": "366"
+    },
+    {
+      "key": "bonus",
+      "label": "批准奖金",
+      "type": "NUMBER",
+      "scale": 2,
+      "min": "0",
+      "max": "1000000000000"
+    },
+    {
+      "key": "approvedDeductions",
+      "label": "批准其他扣款",
+      "type": "NUMBER",
+      "scale": 2,
+      "min": "0",
+      "max": "1000000000000"
+    }
+  ],
+  "columns": [
+    {
+      "key": "proratedBase",
+      "label": "按日折算基本工资"
+    },
+    {
+      "key": "grossBeforeDeductions",
+      "label": "扣款前金额"
+    },
+    {
+      "key": "candidateNetBeforeTax",
+      "label": "未计税社保候选净额"
+    },
+    {
+      "key": "deductionOverage",
+      "label": "扣款超额"
+    }
+  ],
+  "description": "按用户薪酬口径的标准天数与应计天数折算基本工资，叠加奖金及批准扣款，提示超额扣款，不计算个税或社保。",
+  "owner": "上海如静知华信息科技有限公司",
+  "website": "https://www.zhuatech.cn/",
+  "authorization": "商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。",
+  "version": 1,
+  "notes": "输入均须为已获授权的同口径数据。金额固定人民币元；比例为百分数。核算结果只用于复核，未审批、未写库、未发起外部调用，也未触发付款、签名、资料销毁或设备控制。建议不构成法律、安全、会计或碳核证结论。",
+  "sample": {
+    "asOf": "2026-10-23",
+    "records": [
+      {
+        "id": "ITEM-001",
+        "monthlyBase": "10000",
+        "standardDays": "20",
+        "eligibleDays": "15",
+        "bonus": "1000",
+        "approvedDeductions": "500"
+      }
+    ]
+  }
+}

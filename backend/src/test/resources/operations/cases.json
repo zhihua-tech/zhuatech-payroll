@@ -1,0 +1,59 @@
+[
+  {
+    "patch": {},
+    "expected": {
+      "decision": "REVIEW",
+      "proratedBase": "#7500",
+      "candidateNetBeforeTax": "#8000"
+    },
+    "error": false
+  },
+  {
+    "patch": {
+      "approvedDeductions": "8501"
+    },
+    "expected": {
+      "decision": "HOLD",
+      "deductionOverage": "#1"
+    },
+    "error": false
+  },
+  {
+    "patch": {
+      "eligibleDays": "21"
+    },
+    "expected": {},
+    "error": true
+  },
+  {
+    "patch": {
+      "standardDays": "0"
+    },
+    "expected": {},
+    "error": true
+  },
+  {
+    "patch": {
+      "eligibleDays": "0",
+      "bonus": "0",
+      "approvedDeductions": "0"
+    },
+    "expected": {
+      "candidateNetBeforeTax": "#0"
+    },
+    "error": false
+  },
+  {
+    "patch": {
+      "monthlyBase": "100",
+      "standardDays": "3",
+      "eligibleDays": "1",
+      "bonus": "0",
+      "approvedDeductions": "0"
+    },
+    "expected": {
+      "proratedBase": "#33.33"
+    },
+    "error": false
+  }
+]
